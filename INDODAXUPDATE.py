@@ -1,4 +1,3 @@
-from strategi.dump import strategi_dump_buy
 from api.web import tanlalana,tanlalana_fungsi
 from api.public import indodax 
 from api.user import user_indodax 
