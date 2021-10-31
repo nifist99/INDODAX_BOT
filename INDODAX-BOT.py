@@ -1,7 +1,7 @@
 from strategi.dump import strategi_dump_buy
 from api.web import tanlalana,tanlalana_fungsi
 from api.public import indodax 
-from strategi.fibo import fungsi_strategi_fibo
+from strategi.fibo import fibonanci
 from strategi.sell import sell_all
 from config import WindowsInhibitor
 from api.private import private_api
@@ -12,16 +12,6 @@ from config import setting
 from INDODAXSELL import jual_semua_asset,view_coin_jumlah
 from INDODAXUPDATE import update_data,update_strategi_reset,update_dump_reset
 
-def fibonanci_action_beli():
-            NewTanlalana=tanlalana
-            list=NewTanlalana.list_fibo_active()
-
-            for f in list:
-                print("memulai program screening strategi fibonanci buy.....",f['coin'])
-                Newanalisis_execute=fungsi_strategi_fibo(f['coin'])
-                Newanalisis_execute.fibonanci()
-            print("selesai melakukan screening strategi fibonanci buy.......")
-            print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
 
 def main():
         #cekk setting app
@@ -44,7 +34,7 @@ def main():
         if(status_app['status']=='active'):
             print("")
             print("===============================================")          
-            print("app indodax on")
+            print("[APP BOT INDODAX ON]")
             while True:
                 auto_sell= IndodaxSettingApp.control_indodax('simple sell')
                 control_dumb_buy= IndodaxSettingApp.control_indodax('dump buy')
@@ -55,21 +45,18 @@ def main():
                 #MELAKUKAN INISIALISASI OS WINDOWS ATAU LINUX
                 if(nt['status']=='active'):
                     print("===============================================")
-                    print("windows di setting tidak sleep")
+                    print("[WINDOWS NOT SLEEP]")
                     osSleep = WindowsInhibitor()
                     osSleep.inhibit()
                 else:
                     print("===============================================")
-                    print("Berjalan di os selain windows")
+                    print("[RUN IN ANOTHER OS]")
                 
                 #MELAKUKAN BATASAN PROGRAM BERHENTI JIKA BTC DI BAWAH HARGA YG KITA SETT
                 if(parameter_dum_btc<harga_btc):
 
                     #FUNGSI MEMBELI COIN DI HARGA DUMB DI BAWAH SUPORT
                     if(control_dumb_buy['status']=='active'):
-                        print("")
-                        print("===============================================")
-                        print("menjalankan program dump atau harga dibawah suport buy")
                         strategi_dump_buy()
 
                         if(nt['status']=='active'):
@@ -82,14 +69,11 @@ def main():
                         time.sleep(5)
                     else:
                         print("")
-                        print("dumb buy tidak active")
+                        print("[CONTROL INDODAX DUMB BUY NOT ACTIVE]")
 
                     #MELAKUKAN FUNGSI BELI FIBONANCI
                     if(control_fibonanci_buy['status']=='active'):
-                        print("")
-                        print("===============================================")
-                        print("menjalankan strategi fibonanci buy")
-                        fibonanci_action_beli()
+                        fibonanci()
                         if(nt['status']=='active'):
                             #clear layar perintah windows
                             os.system("cls")
@@ -99,18 +83,14 @@ def main():
                         time.sleep(5)
                     else:
                         print("")
-                        print("fibonanci buy tidak active")
+                        print("[CONTROL INDODAX FIBONANCI BUY NOT ACTIVE]")
 
                 else:
                     print("")
-                    print("===============================================")
-                    print("program beli crypto tidak dijalankan harga btc lebih rendah dari parameter yang di setting")
+                    print("[BTC DUMP PROGRAM NOT RUN]")
 
                 #MELAKUKAN FUNGSI FIBONANCI SELL
                 if(sell['status']=='active'):
-                    print("")
-                    print("===============================================")
-                    print("menjalankan program fibonanci sell")
                     sell_all()
                     if(nt['status']=='active'):
                             #clear layar perintah windows
@@ -121,7 +101,7 @@ def main():
                     time.sleep(5)
                 else:
                         print("")
-                        print("fibonanci sell tidak active")
+                        print("[CONTROL INDODAX SELL COIN NOT ACTIVE]")
 
                 #MELAKUKAN FUNGSI AUTO SELL
                 if(auto_sell['status']=='active'):
@@ -129,8 +109,8 @@ def main():
                     print("===============================================")
                     simple_sell=float(view_coin_jumlah())
                     simple_sell_web=IndodaxSettingApp.indodax_simple_sell()
-                    print('Target Jual =',simple_sell_web['auto_sell'])
-                    print('Nilai Asset Sekarang =',simple_sell)
+                    print('[TARGET SELL] :',simple_sell_web['auto_sell'])
+                    print('[PRICE INDODAX NOW] :',simple_sell)
                     print("")
                     print("===============================================")
                     if(float(simple_sell)>float(simple_sell_web['auto_sell'])):
@@ -139,9 +119,9 @@ def main():
                         update_strategi_reset()
                         update_dump_reset()
                         time.sleep(5)
-                        print("Asset Terjual & Semua Data Di Riset")
+                        print("[FINISH TO SELL ALL COIN PARAMETER ALL UPDATE]")
                     else:
-                        print("Asset Belum Terjual, Belum Masuk Target Jual")
+                        print("[PRICE NOT PASS STRATEGI]")
                         time.sleep(5)
 
                     if(nt['status']=='active'):
@@ -152,12 +132,12 @@ def main():
                             os.system("clear")
                 else:
                         print("")
-                        print("simple sell tidak active")
+                        print("[CONTROL INDODAX SIMPLE SELL NOT ACTIVE]")
            
         else:
             print("")
             print("===============================================")          
-            print("app indodax off silahkan onkan agar program berjalan")
+            print("[APP INDODAX OFF]")
    
 if __name__ == "__main__":
       main()

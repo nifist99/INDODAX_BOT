@@ -23,87 +23,62 @@ class strategi:
 
         return self.result_fibo
 
-class fungsi_strategi_fibo:
 
-    def __init__(self,crypto):
-    #coin active dari screening server tanlalana
-        self.crypto = crypto
-
-    def fibonanci(self):
-            print("")
-            print("==================================")
-            print("menjalankan strategi fibonanci buy")
-            print("")
+def fibonanci():
             NewTanlalana=tanlalana
             data=private_api(setting.apikey(),setting.screetkey())
+            list=NewTanlalana.list_fibo_active()
             get_spesific=data.get_info()
 
             balance_idr=float(get_spesific['return']['balance']['idr'])
+            print("[NAMA] :",get_spesific['return']['name'])
+            print("[MONEY BALANCE] :",balance_idr)
+            print("")
+            print("[START STRATEGI BUY FIBONANCI]")
+            print("")
+            for f in list:
+                NewIndodax=indodax(f['coin'])
+                result=NewIndodax.api_ticker_detail()
+                detail=NewTanlalana.get_data_from_server(f['coin'])
+                    
+                harga_buy=float(result['ticker']['sell'])            
+                suport=int(detail['data']['suport'])
+                resisten=int(detail['data']['resisten'])
+                list_strategi=tanlalana.list_strategi_fibonanci(detail['data']['id'])
 
-            NewIndodax=indodax(self.crypto)
-            result=NewIndodax.api_ticker_detail()
-            detail=NewTanlalana.get_data_from_server(self.crypto)
-                
-            harga_buy=float(result['ticker']['sell'])            
-            suport=int(detail['data']['suport'])
-            resisten=int(detail['data']['resisten'])
+                for n in list_strategi:
+                        jam=time.strftime("%H:%M:%S", time.localtime())
+                        NewStrategi=strategi(suport,resisten,n['angka_fibo'])
+                        starategi_result=NewStrategi.fibonanci()
+                        harga_beli_fibo=starategi_result
+                        if(harga_buy<=harga_beli_fibo):
+                            if(n['status'] == 'buy'):
+                                if(balance_idr>=n['idr']):
+                                    # buy=uang*30/100
+                                    buy=n['idr']
+                                    # data.trade_buy('zil',harga_buy,buy)
+                                    cek_buy=data.trade_buy(detail['data']['trade_parameter'],harga_buy,buy)
+                                    #add history trade
+                                    if(cek_buy['success']==1):
+                                        re='receive_'
+                                        trade_c=detail['data']['trade_parameter']
 
-            list_strategi=tanlalana.list_strategi_fibonanci(detail['data']['id'])
+                                        NewTanlalana.trade_run_add(n['strategi'],detail['data']['id_users'],detail['data']['id'],harga_buy,buy,n['keuntungan'],'sell',cek_buy['return'][re+trade_c],cek_buy['return']['spend_rp'],cek_buy['return']['fee'],cek_buy['return']['remain_rp'],cek_buy['return']['order_id'])
+                                        NewTanlalana.history_trade_add(f['coin'],detail['data']['id_users'],"buy",harga_buy,n['id_coin'],buy,0,cek_buy['return'][re+trade_c],cek_buy['return']['spend_rp'],cek_buy['return']['fee'],cek_buy['return']['remain_rp'],cek_buy['return']['order_id'])
 
-            for n in list_strategi:
-                    NewStrategi=strategi(suport,resisten,n['angka_fibo'])
-                    starategi_result=NewStrategi.fibonanci()
-                    harga_beli_fibo=starategi_result
-                    print("")
-                    print("===============================================")
-                    print("Harga Beli :",harga_buy)
-                    print("Target Beli :",harga_beli_fibo)
-                    if(harga_buy<=harga_beli_fibo):
-                        if(n['status'] == 'buy'):
-                            if(balance_idr>=n['idr']):
-                                # buy=uang*30/100
-                                print("")
-                                print("===============================================")
-                                print("coin :",self.crypto)
-                                print("sedang melakukan pembelian di....",n['strategi'])
-                                buy=n['idr']
-                                # data.trade_buy('zil',harga_buy,buy)
-                                cek_buy=data.trade_buy(detail['data']['trade_parameter'],harga_buy,buy)
-                                #add history trade
-                                if(cek_buy['success']==1):
-                                    re='receive_'
-                                    trade_c=detail['data']['trade_parameter']
-
-                                    NewTanlalana.trade_run_add(n['strategi'],detail['data']['id_users'],detail['data']['id'],harga_buy,buy,n['keuntungan'],'sell',cek_buy['return'][re+trade_c],cek_buy['return']['spend_rp'],cek_buy['return']['fee'],cek_buy['return']['remain_rp'],cek_buy['return']['order_id'])
-                                    NewTanlalana.history_trade_add(self.crypto,detail['data']['id_users'],"buy",harga_buy,n['id_coin'],buy,0,cek_buy['return'][re+trade_c],cek_buy['return']['spend_rp'],cek_buy['return']['fee'],cek_buy['return']['remain_rp'],cek_buy['return']['order_id'])
-
-                                    #update strategi indodax
-                                    tanlalana_fungsi.update_data_strategi(n['strategi'],detail['data']['id'],harga_buy,buy,"sell",n['id'])
-                                    print("terbeli dengan harga",harga_buy)
-                                    print("coin :",self.crypto)
-                                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                    print("")
+                                        #update strategi indodax
+                                        tanlalana_fungsi.update_data_strategi(n['strategi'],detail['data']['id'],harga_buy,buy,"sell",n['id'])
+                                        print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : SUCCESS ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',buy,' ','[PRICE TARGET]',harga_beli_fibo)
+                                    else:
+                                        print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
+                                        data.cancel_order_buy(detail['data']['trade_parameter'],cek_buy['return']['order_id'])
                                 else:
-                                    print("coin :",self.crypto)
-                                    print("gagal melakukan pembelian")
-                                    data.cancel_order_buy(detail['data']['trade_parameter'],cek_buy['return']['order_id'])
+                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED MONEY NOT ENAUGH ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
                             else:
-                                print("coin :",self.crypto)
-                                print("uang indodax tidak cukup untuk membeli =",balance_idr)
-                                print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                print("")
+                                print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FINISH COIN BUY ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
                         else:
-                            print("")
-                            print("coin :",self.crypto)
-                            print("===============================================")
-                            print("sudah terbeli coin di",n['strategi'])
-                            print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                            print("")
-                    else:
-                        print("")
-                        print("coin :",self.crypto)
-                        print("===============================================")
-                        print("harga belum sesui setrategi fibo",n['strategi'])
-                        print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                        print("")
-                        
+                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : PRICE STRATEGI NOT PASS ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
+                
+                print("")
+                print("[",jam,"]","[FINISH LOOP FIBO BUY]","[COIN :",f['coin']," ]")
+                print("")

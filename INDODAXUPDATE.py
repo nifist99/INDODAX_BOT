@@ -1,8 +1,6 @@
 from api.web import tanlalana,tanlalana_fungsi
 from api.public import indodax 
 from api.user import user_indodax 
-from strategi.fibo import fungsi_strategi_fibo
-from config import WindowsInhibitor
 import time
 import os
 from config import setting

@@ -14,29 +14,25 @@ def strategi_dump_buy():
         #membuat info uang jadi int
             balance_idr=float(get_spesific['return']['balance']['idr'])
 
-            print("nama =",get_spesific['return']['name'])
-            print("uang di aplikasi indodax =",get_spesific['return']['balance']['idr'])
-
+            print("[NAMA] :",get_spesific['return']['name'])
+            print("[MONEY BALANCE] :",balance_idr)
+            print("")
+            print("===============================================")
+            print("[START PROGRAM DUMP BUY]")
             for f in list:
                 if(f['status_dump']=='active'):
                 #mengetahui harga sekarang
-                    
+                    jam=time.strftime("%H:%M:%S", time.localtime())
                     NewIndodax=indodax(f['coin'])
                     result=NewIndodax.api_ticker_detail()
                     harga_buy=float(result['ticker']['sell'])
                     
-                    print("")
-                    print("===============================================")
-                    print("memulai program dump buy =",f['coin'])
                     autobuy=NewTanlalana.list_tanlalana_auto_buy_sell(f['id'])
                     for auto in autobuy:
                         if(auto['status']=='buy'):
                             if(auto['harga_buy']!=0):
                                 if(harga_buy<=auto['harga_buy']):
                                     if(balance_idr>=auto['idr']):
-                                        print("")
-                                        print("===============================================")
-                                        print("sedang melakukan pembelian di harga =",harga_buy)
                                         buy=auto['idr']
                                         # data.trade_buy('zil',harga_buy,buy)
                                         cek_buy=data.trade_buy(f['trade_parameter'],harga_buy,buy)
@@ -54,42 +50,26 @@ def strategi_dump_buy():
                                             #update parameter strategi jadi sell
                                             NewTanlalana.update_tanlalana_auto_buy_sell(auto['id'],auto['id_coin'],'sell',harga_buy)
 
-                                            print("terbeli dengan harga =",harga_buy)
-                                            print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                            print("")
+                                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : SUCCESS]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',buy,' ','[PRICE TARGET]',auto['harga_buy'])
                                         else:
-                                            print("gagal melakukan pembelian")
+                                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',buy,' ','[PRICE TARGET]',auto['harga_buy'])
                                             data.cancel_order_buy(f['trade_parameter'],cek_buy['return']['order_id'])
                                         
                                     else:
-                                        print("sisa uang di aplikasi tidak cukup jumlah =",balance_idr)
-                                        print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                        print("")
+                                        print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED MONEY NOT ENAUGH]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
                                 else:
-                                    print("===============================================")
-                                    print("coin belum terbeli =",f['coin'])
-                                    print("harga sekarang =",harga_buy)
-                                    print("target beli =",auto['harga_buy'])
-                                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                    print("")
+                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : PRICE STRATEGI NOT PASS]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
                             
                             else:
-                               print("===============================================")
-                               print("silahkan isikan posisi harga beli") 
+                               print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : PLEASE CHECK PRICE IN WEB NOT DETECT]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy']) 
 
                         else:
-                            print("===============================================")
-                            print("coin sudah terbeli =",auto['harga_buy'])
+                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FINISH COIN BUY]','[PRICE]',' ',auto['harga_buy'],' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
 
                 else:
-                    print("")
-                    print("===============================================")
-                    print("coin=",f['coin'])
-                    print("status coin =",f['status_dump'])
-                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                    print("")
+                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : DUMP NOT ACTIVE]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
 
-                print("selesai melakukan screening crypto beli active")
-                print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
+                print("")
+                print("[",jam,"]","[FINISH LOOP DUMP BUY]","[COIN :",f['coin']," ]")
                 print("")
 

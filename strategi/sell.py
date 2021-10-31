@@ -10,8 +10,12 @@ def sell_all():
             list=NewTanlalana.list_trade_run_sell()
             get_spesific=data.get_info()
 
-            print("nama =",get_spesific['return']['name'])
-            print("uang di aplikasi indodax =",get_spesific['return']['balance']['idr'])
+            balance_idr=float(get_spesific['return']['balance']['idr'])
+            print("[NAMA] :",get_spesific['return']['name'])
+            print("[MONEY BALANCE] :",get_spesific['return']['balance']['idr'])
+            print("")
+            print("===============================================")
+            print("[START PROGRAM SELL COIN]")
 
             for f in list:
                 if(f['status']=='sell'):
@@ -21,14 +25,9 @@ def sell_all():
                         result=NewIndodax.api_ticker_detail()
                         harga_sell=float(result['ticker']['buy'])
                         
-                        print("")
-                        print("===============================================")
-                        print("memulai program screeneing sell coin =",f['coin'])
-                        
+                        jam=time.strftime("%H:%M:%S", time.localtime())
                         keuntungan=float(f['keuntungan']*f['harga_buy']/100)
                         harga_target_jual=float(f['harga_buy']+keuntungan)
-                        print("Harga Sekarang :",harga_sell)
-                        print("Target Jual :",harga_target_jual)
                         if(harga_sell>=harga_target_jual):
                                 if(f['status'] == 'sell'):
                                     cek_sell=data.trade_sell(detail['data']['trade_parameter'],harga_sell,f['receive_coin'])
@@ -43,29 +42,15 @@ def sell_all():
 
                                     NewTanlalana.update_trade_run(f['id'],'finish')
                                         
-                                    print("coin =",f['coin'])
-                                    print("terjual di harga =",harga_sell)
-                                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                    print("")
+                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : SUCCESS]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',receive,' ','[SELL TARGET]',harga_target_jual)
 
                                 else:
-                                    print("===============================================")
-                                    print("coin belum terjual, harga saat ini =",harga_sell)
-                                    print("target jual =",harga_target_jual)
-                                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                    print("")
+                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : CEK STATUS WEB]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',f['harga'],' ','[SELL TARGET]',harga_target_jual)
                         else:
-                                print("harga belum sesui target")
-                                print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                print("")
+                                print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : PRICE STRATEGI NOT PASS]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',f['harga'],' ','[SELL TARGET]',harga_target_jual)
                 else:
-                    print("")
-                    print("===============================================")
-                    print("coin=",f['coin'])
-                    print("status coin =",f['status_dump'])
-                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                    print("")
+                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : CEK STATUS WEB]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',f['harga'],' ','[SELL TARGET]',harga_target_jual)
 
-                print("")
-                print("selesai melakukan secrening dump sell.............")
-                print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
+            print("")
+            print("[",jam,"]","[FINISH LOOP SELL]")
+            print("")
