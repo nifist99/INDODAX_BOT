@@ -36,20 +36,18 @@ def sell_all():
                                     sold='sold_'+detail['data']['trade_parameter']
                                     receive='receive_rp'
                                     remain='remain_'+detail['data']['trade_parameter']
-                                    if(cek_sell['success']==1):
-                                        NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,cek_sell['return'][sold],cek_sell['return'][receive],cek_sell['return']['fee'],cek_sell['return'][receive],cek_sell['return']['order_id'])                               
+      
+                                    NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,cek_sell['return'][sold],cek_sell['return'][receive],cek_sell['return']['fee'],cek_sell['return'][receive],cek_sell['return']['order_id'])                               
                                         #update strategi indodax
-                                        NewTanlalana.update_tanlalana_auto_buy_sell(f['id'],f['id_coin'],'finish',harga_sell)
+                                    NewTanlalana.update_tanlalana_auto_buy_sell(f['id'],f['id_coin'],'finish',harga_sell)
 
-                                        NewTanlalana.update_trade_run(f['id'],'finish')
+                                    NewTanlalana.update_trade_run(f['id'],'finish')
                                         
-                                        print("coin =",f['coin'])
-                                        print("terjual di harga =",harga_sell)
-                                        print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                                        print("")
-                                    else:
-                                            print("gagal melakukan pembelian")
-                                            data.cancel_order_sell(detail['data']['trade_parameter'],cek_sell['return']['order_id'])
+                                    print("coin =",f['coin'])
+                                    print("terjual di harga =",harga_sell)
+                                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
+                                    print("")
+
                                 else:
                                     print("===============================================")
                                     print("coin belum terjual, harga saat ini =",harga_sell)
