@@ -36,6 +36,7 @@ def main():
             print("===============================================")          
             print("[APP BOT INDODAX ON]")
             while True:
+                delay_program=dum_btc=IndodaxSettingApp.indodax_setting('delay')
                 auto_sell= IndodaxSettingApp.control_indodax('simple sell')
                 control_dumb_buy= IndodaxSettingApp.control_indodax('dump buy')
                 sell=IndodaxSettingApp.control_indodax('sell')
@@ -133,6 +134,15 @@ def main():
                 else:
                         print("")
                         print("[CONTROL INDODAX SIMPLE SELL NOT ACTIVE]")
+
+                if(delay_program['parameter_int']!=0):
+                    menit=int(delay_program['parameter_int']*60)
+                    print("")
+                    print("DELAY PROGRAM :",delay_program['parameter_int']," MENIT............")
+                    time.sleep(menit)
+                else:
+                        print("")
+                        print("[DELAY PROGRAM NOT ACTIVE]")
            
         else:
             print("")
