@@ -3,6 +3,7 @@ from api.public import indodax
 from config import setting
 from api.private import private_api
 import time
+from view.table import view_table
 
 
 def strategi_dump_buy():
@@ -50,24 +51,24 @@ def strategi_dump_buy():
                                             #update parameter strategi jadi sell
                                             NewTanlalana.update_tanlalana_auto_buy_sell(auto['id'],auto['id_coin'],'sell',harga_buy)
 
-                                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : SUCCESS]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',buy,' ','[PRICE TARGET]',auto['harga_buy'])
+                                            view_table(jam,f['coin'],"SUCCESS BUY",auto['harga_buy'],buy,harga_buy)
                                         else:
-                                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',buy,' ','[PRICE TARGET]',auto['harga_buy'])
+                                            view_table(jam,f['coin'],"CANCEL BUY",auto['harga_buy'],buy,harga_buy)
                                             data.cancel_order_buy(f['trade_parameter'],cek_buy['return']['order_id'])
                                         
                                     else:
-                                        print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED MONEY NOT ENAUGH]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
+                                        view_table(jam,f['coin'],"FAILED MONEY NOT ENAUGH",auto['harga_buy'],auto['idr'],harga_buy)
                                 else:
-                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : PRICE STRATEGI NOT PASS]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
+                                    view_table(jam,f['coin'],"PRICE STRATEGI NOT PASS",auto['harga_buy'],auto['idr'],harga_buy)
                             
                             else:
-                               print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : PLEASE CHECK PRICE IN WEB NOT DETECT]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy']) 
+                               view_table(jam,f['coin'],"ERROR PLEASE CHECK PARAMETER WEB",auto['harga_buy'],auto['idr'],harga_buy) 
 
                         else:
-                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FINISH COIN BUY]','[PRICE]',' ',auto['harga_buy'],' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
+                            view_table(jam,f['coin'],"FINISH BUY",auto['harga_buy'],auto['idr'],harga_buy)
 
                 else:
-                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : DUMP NOT ACTIVE]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',auto['idr'],' ','[PRICE TARGET]',auto['harga_buy'])
+                    view_table(jam,f['coin'],"DUMP BUY NOT ACTIVE",auto['harga_buy'],auto['idr'],harga_buy)
 
                 print("")
                 print("[",jam,"]","[FINISH LOOP DUMP BUY]","[COIN :",f['coin']," ]")

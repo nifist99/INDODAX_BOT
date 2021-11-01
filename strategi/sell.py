@@ -3,6 +3,7 @@ from api.public import indodax
 from config import setting
 from api.private import private_api
 import time
+from view.table import view_table
 
 def sell_all():
             NewTanlalana=tanlalana
@@ -43,13 +44,13 @@ def sell_all():
                                     NewTanlalana.update_trade_run(f['id'],'finish')
                                         
                                     print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : SUCCESS]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',receive,' ','[SELL TARGET]',harga_target_jual)
-
+                                    view_table(jam,f['coin'],"SUCCESS",harga_target_jual,f['harga'],harga_sell)
                                 else:
-                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : CEK STATUS WEB]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',f['harga'],' ','[SELL TARGET]',harga_target_jual)
+                                    view_table(jam,f['coin'],"CEK STATUS WEB",harga_target_jual,f['harga'],harga_sell)
                         else:
-                                print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : PRICE STRATEGI NOT PASS]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',f['harga'],' ','[SELL TARGET]',harga_target_jual)
+                                view_table(jam,f['coin'],"PRICE STRATEGI NOT PASS",harga_target_jual,f['harga'],harga_sell)
                 else:
-                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : CEK STATUS WEB]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',f['harga'],' ','[SELL TARGET]',harga_target_jual)
+                    view_table(jam,f['coin'],"CEK STATUS WEB",harga_target_jual,f['harga'],harga_sell)
 
             print("")
             print("[",jam,"]","[FINISH LOOP SELL]")

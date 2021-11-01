@@ -3,6 +3,7 @@ from api.public import indodax
 from config import setting
 from api.private import private_api
 import time
+from view.table import view_table
 
 class strategi:
     def __init__(self,suport, resisten,angka_fibo):
@@ -68,16 +69,16 @@ def fibonanci():
 
                                         #update strategi indodax
                                         tanlalana_fungsi.update_data_strategi(n['strategi'],detail['data']['id'],harga_buy,buy,"sell",n['id'])
-                                        print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : SUCCESS ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',buy,' ','[PRICE TARGET]',harga_beli_fibo)
+                                        view_table(jam,f['coin'],"SUCCESS",harga_beli_fibo,n['idr'],harga_buy)
                                     else:
-                                        print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
+                                        view_table(jam,f['coin'],"CANCEL ORDER",harga_beli_fibo,n['idr'],harga_buy)
                                         data.cancel_order_buy(detail['data']['trade_parameter'],cek_buy['return']['order_id'])
                                 else:
-                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FAILED MONEY NOT ENAUGH ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
+                                    view_table(jam,f['coin'],"FAILED MONEY NOT ENAUGH",harga_beli_fibo,n['idr'],harga_buy)
                             else:
-                                print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : FINISH COIN BUY ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
+                                view_table(jam,f['coin'],"FINISH COIN BUY",harga_beli_fibo,n['idr'],harga_buy)
                         else:
-                            print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS BUY : PRICE STRATEGI NOT PASS ]','[PRICE]',' ',harga_buy,' ','[IDR]',' ',n['idr'],' ','[PRICE TARGET]',harga_beli_fibo)
+                            view_table(jam,f['coin'],"PRICE STRATEGI NOT PASS",harga_beli_fibo,n['idr'],harga_buy)
                 
                 print("")
                 print("[",jam,"]","[FINISH LOOP FIBO BUY]","[COIN :",f['coin']," ]")

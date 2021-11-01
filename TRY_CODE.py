@@ -7,6 +7,7 @@ import os
 from config import setting
 #aksi looping 
 from INDODAXSELL import view_coin_jumlah
+from texttable import Texttable
 
 
 def main():
@@ -30,8 +31,18 @@ def main():
                   # test=NewTanlalana.history_trade_add('zil',int(3),'buy',float(1200),int(187),float(15000),0,float(9000),float(9200),float(29),float(0),int(18888))
                   # test=tanlalana.list_trade_run_sell()
                   # print(test)
-                  cek=view_coin_jumlah()
-                  print(cek)
+                  # cek=view_coin_jumlah()
+                  # print(cek)
+
+                  table = Texttable()
+                  table.add_rows([
+                                  ["Name", "Age", "Nickname"],
+                                  ["Mr", 32, "Xav"],
+                                  ["Baptiste", 1, "Baby"],
+                                  ["Mme", 28, "Lou"]
+                                ])
+                  print(table.draw())
+                  print()
 
 if __name__ == "__main__":
       main()
