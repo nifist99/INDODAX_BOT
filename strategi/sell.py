@@ -34,10 +34,10 @@ def sell_all():
                                     cek_sell=data.trade_sell(detail['data']['trade_parameter'],harga_sell,f['receive_coin'])
                                     #add history trade
                                     sold='sold_'+detail['data']['trade_parameter']
-                                    receive='receive_rp'
+                                    receive=f['harga']*f['receive_coin']
                                     remain='remain_'+detail['data']['trade_parameter']
       
-                                    NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,cek_sell['return'][sold],cek_sell['return'][receive],cek_sell['return']['fee'],cek_sell['return'][receive],cek_sell['return']['order_id'])                               
+                                    NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,f['receive_coin'],receive,f['fee'],receive,f['order_id'])                               
                                         #update strategi indodax
                                     NewTanlalana.update_tanlalana_auto_buy_sell(f['id'],f['id_coin'],'finish',harga_sell)
 
