@@ -81,7 +81,7 @@ def desesion():
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            main()
+            INDODAXUPDATE()
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -95,7 +95,7 @@ def desesion():
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            main()
+            INDODAXUPDATE()
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -107,7 +107,7 @@ def desesion():
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            main()
+            INDODAXUPDATE()
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -119,7 +119,7 @@ def desesion():
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            main()
+            INDODAXUPDATE()
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -128,7 +128,7 @@ def desesion():
     else:
         os.system('cls')
         print("pilih yang benar ngab angkanya !!!!!!!")
-        main()
+        INDODAXUPDATE()
 
 def single(crypto):
         print("")
