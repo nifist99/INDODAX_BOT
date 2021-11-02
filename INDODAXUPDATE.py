@@ -170,9 +170,9 @@ def loop():
         print("")
         print("selesai melakukan update semua coin.....")
 
-def main():
+def INDODAXUPDATE():
     desesion()
     # update_user()
    
-if __name__ == "__main__":
-      main()
+# if __name__ == "__main__":
+#       main()

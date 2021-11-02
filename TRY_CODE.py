@@ -8,6 +8,7 @@ from config import setting
 #aksi looping 
 from INDODAXSELL import view_coin_jumlah
 from texttable import Texttable
+from countdown import countdown
 
 
 def main():
@@ -36,13 +37,12 @@ def main():
 
                   table = Texttable()
                   table.add_rows([
-                                  ["Name", "Age", "Nickname"],
-                                  ["Mr", 32, "Xav"],
-                                  ["Baptiste", 1, "Baby"],
-                                  ["Mme", 28, "Lou"]
+                                  ["DELAY PROGRAM"]
                                 ])
                   print(table.draw())
                   print()
+                  countdown(1)
+                  print("lanjut")
 
 if __name__ == "__main__":
       main()

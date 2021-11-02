@@ -13,7 +13,7 @@ from INDODAXSELL import jual_semua_asset,view_coin_jumlah
 from INDODAXUPDATE import update_data,update_strategi_reset,update_dump_reset
 
 
-def main():
+def bot():
         #cekk setting app
         #cek btc indodax menghindari dumb
         NewBtc=indodax("btc")
@@ -149,5 +149,5 @@ def main():
             print("===============================================")          
             print("[APP INDODAX OFF]")
    
-if __name__ == "__main__":
-      main()
+# if __name__ == "__main__":
+#       main()

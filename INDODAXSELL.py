@@ -148,7 +148,7 @@ def view_coin():
 
             print(round(tambah,2))      
 
-def main():
+def INDODAXSELL():
    print("==============================================")
    print("ini adalah app penjualan semua coin")
    print("")
@@ -166,5 +166,5 @@ def main():
        quit()
 
 
-if __name__ == "__main__":
-      main()
+# if __name__ == "__main__":
+#       main()
