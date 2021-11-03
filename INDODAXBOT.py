@@ -13,7 +13,7 @@ from INDODAXSELL import jual_semua_asset,view_coin_jumlah
 from INDODAXUPDATE import update_data,update_strategi_reset,update_dump_reset
 
 
-def bot():
+def bot(id_users):
         #cekk setting app
         #cek btc indodax menghindari dumb
         NewBtc=indodax("btc")
@@ -22,13 +22,13 @@ def bot():
 
         #cekk setting app
         IndodaxSettingApp=tanlalana
-        dum_btc=IndodaxSettingApp.indodax_setting("btc")
+        dum_btc=IndodaxSettingApp.indodax_setting("btc",id_users)
         # status_app=IndodaxSettingApp.indodax_setting("status")
 
         parameter_dum_btc=float(dum_btc['parameter_int'])
         osSleep = None
 
-        status_app= IndodaxSettingApp.control_indodax('trading indodax')
+        status_app= IndodaxSettingApp.control_indodax('trading indodax',id_users)
 
         #in Windows, prevent the OS from sleeping while we run
         if(status_app['status']=='active'):
@@ -36,12 +36,12 @@ def bot():
             print("===============================================")          
             print("[APP BOT INDODAX ON]")
             while True:
-                delay_program=dum_btc=IndodaxSettingApp.indodax_setting('delay')
-                auto_sell= IndodaxSettingApp.control_indodax('simple sell')
-                control_dumb_buy= IndodaxSettingApp.control_indodax('dump buy')
-                sell=IndodaxSettingApp.control_indodax('sell')
-                control_fibonanci_buy=IndodaxSettingApp.control_indodax('fibonanci buy')
-                nt=IndodaxSettingApp.control_indodax('windows not sleep')
+                delay_program=dum_btc=IndodaxSettingApp.indodax_setting('delay',id_users)
+                auto_sell= IndodaxSettingApp.control_indodax('simple sell',id_users)
+                control_dumb_buy= IndodaxSettingApp.control_indodax('dump buy',id_users)
+                sell=IndodaxSettingApp.control_indodax('sell',id_users)
+                control_fibonanci_buy=IndodaxSettingApp.control_indodax('fibonanci buy',id_users)
+                nt=IndodaxSettingApp.control_indodax('windows not sleep',id_users)
                 
                 #MELAKUKAN INISIALISASI OS WINDOWS ATAU LINUX
                 if(nt['status']=='active'):

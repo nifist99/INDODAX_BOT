@@ -10,6 +10,8 @@ def login(email,password):
     user=user_indodax.indodax_login(email,password)
     if(user['api_status']==1):
         print(user['api_message'])
+        global id_users
+        id_users=user['data']['id']
 
         print("[1] MENU PROGRAM UTAMA BOT TRADING :")
         print("[2] MENU UPDATE STRATEGI DAN PARAMETER WEB :")
@@ -17,10 +19,10 @@ def login(email,password):
         print("")
         confrim = int(input("[MASUKAN ANGKA MENU] : "))
         if(confrim==1):
-            bot()
+            bot(id_users)
         elif(confrim==2):
             INDODAXUPDATE()
-        elif(confrim==2):
+        elif(confrim==3):
             INDODAXSELL()
         else:
             print("[MASUKAN ANGKA SESUI MENU]")

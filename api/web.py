@@ -142,10 +142,12 @@ class tanlalana:
                 return tanlalana.list_strategi_fibonanci(this_id_coin)
     
     #indodax coin active
-    def list_data_server_active():
+    def list_data_server_active(id_users):
+        this_id_user=id_users
         try:
             url="indodax_list_active"
-            r=http.post(url)
+            param={'id_users':id_users}
+            r=http.post(url,data=param)
             respon=r.json()
             global list_tanlalana_active
             list_tanlalana_active=respon['data']
@@ -153,7 +155,7 @@ class tanlalana:
         except Exception:
                 # sleep for a bit in case that helps
                 time.sleep(2)
-                return tanlalana.list_data_server_active()
+                return tanlalana.list_data_server_active(this_id_user)
 
      #MENAMPILKAN COIN YANG AKAN DI JUAL DI STRATEGI DUMP SELL
     def get_dump_sell():
@@ -170,10 +172,11 @@ class tanlalana:
                 return tanlalana.get_dump_sell()
 
      #MENAMPILKAN COIN DI STRATEGI FIBO ACTIVE
-    def list_fibo_active():
+    def list_fibo_active(id_users):
         try:
             url="list_fibo_active"
-            r=http.post(url)
+            param={'id_coin':id_users}
+            r=http.post(url,data=param)
             respon=r.json()
             global list_fibo_active
             list_fibo_active=respon['data']
@@ -182,7 +185,7 @@ class tanlalana:
         except Exception:
                 # sleep for a bit in case that helps
                 time.sleep(2)
-                return tanlalana.list_fibo_active()
+                return tanlalana.list_fibo_active(id_users)
 
     #MENAMPILKAN KOIN FIBO YANG AKAN DIJUAL
     def update_all_trade_run():
@@ -226,17 +229,18 @@ class tanlalana:
                 time.sleep(2)
                 return tanlalana.indodax_dump_list_sell(coin)
 
-    def list_trade_run_sell():
+    def list_trade_run_sell(id_users):
         try:
             url="list_trade_run_sell"
-            r=http.post(url)
+            param={'id_users':id_users}
+            r=http.post(url,data=param)
             respon=r.json()
             list_trade_run_sell=respon['data']
             return list_trade_run_sell
         except Exception:
                 # sleep for a bit in case that helps
                 time.sleep(2)
-                return tanlalana.list_trade_run_sell()
+                return tanlalana.list_trade_run_sell(id_users)
 
 
     #MELAKUKAN UPDATE DI STRATEGI DUMP SELL
@@ -274,10 +278,11 @@ class tanlalana:
                 return tanlalana.update_trade_run(this_id,this_status)
 
     #indodax setting
-    def indodax_setting(nama):
+    def indodax_setting(nama,id_users):
         this_nama=nama
+        this_id_users=id_users
         try:
-            param={'nama':nama}
+            param={'nama':nama,'id_users':id_users}
             url="indodax_setting"
             r=http.post(url,data=param)
             respon=r.json()
@@ -287,7 +292,7 @@ class tanlalana:
         except Exception:
                 # sleep for a bit in case that helps
                 time.sleep(2)
-                return tanlalana.indodax_setting(this_nama)
+                return tanlalana.indodax_setting(this_nama,this_id_users)
 
     #parameter khusus koin btc
     def update_btc():
@@ -332,10 +337,11 @@ class tanlalana:
                 return tanlalana.dump_reset(this_id_coin)
 
     #fungsi untuk control bot indodax mematikan dan  menghidupkan fungsi
-    def control_indodax(nama):
+    def control_indodax(nama,id_users):
             this_nama=nama
+            this_id_users=id_users
             try:
-                param={'nama':nama}
+                param={'nama':nama,'id_users':id_users}
                 url="control_indodax"
                 r=http.post(url,data=param)
                 control=r.json()
@@ -343,7 +349,7 @@ class tanlalana:
             except Exception:
                     # sleep for a bit in case that helps
                     time.sleep(2)
-                    return tanlalana.control_indodax(this_nama)
+                    return tanlalana.control_indodax(this_nama,this_id_users)
 
     #FUNGSI UNTUK MENJUAL ALL KOIN JIKA SUDAH SESUI TARGET
     def indodax_simple_sell():

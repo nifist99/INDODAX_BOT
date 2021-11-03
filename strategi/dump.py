@@ -6,10 +6,11 @@ import time
 from view.table import view_table
 
 
-def strategi_dump_buy():
+def strategi_dump_buy(id_users):
             NewTanlalana=tanlalana
-            data=private_api(setting.apikey(),setting.screetkey())
-            list=NewTanlalana.list_data_server_active()
+            Setting=setting(id_users)
+            data=private_api(Setting.apikey(),Setting.screetkey())
+            list=NewTanlalana.list_data_server_active(id_users)
             get_spesific=data.get_info()
 
         #membuat info uang jadi int

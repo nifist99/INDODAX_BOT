@@ -3,16 +3,19 @@ from api.web import tanlalana
 
 
 class setting:
-        #api screetkey dari web
-        def screetkey():
+        def __init__(self,id_users):
+    #key dari indodax
+            self.id_users = id_users
+      
+        def screetkey(self):
             global screetkey
-            screetkey=tanlalana.indodax_setting("screetkey")
+            screetkey=tanlalana.indodax_setting("screetkey",self.id_users)
             return screetkey['parameter_text']
 
         #apikey dari web
-        def apikey():
+        def apikey(self):
             global apikey
-            apikey=tanlalana.indodax_setting("apikey")
+            apikey=tanlalana.indodax_setting("apikey",self.id_users)
             return apikey['parameter_text']
 
 #windows not sleep

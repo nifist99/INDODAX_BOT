@@ -5,10 +5,11 @@ from api.private import private_api
 import time
 from view.table import view_table
 
-def sell_all():
+def sell_all(id_users):
             NewTanlalana=tanlalana
-            data=private_api(setting.apikey(),setting.screetkey())
-            list=NewTanlalana.list_trade_run_sell()
+            Setting=setting(id_users)
+            data=private_api(Setting.apikey(),Setting.screetkey())
+            list=NewTanlalana.list_trade_run_sell(id_users)
             get_spesific=data.get_info()
 
             balance_idr=float(get_spesific['return']['balance']['idr'])

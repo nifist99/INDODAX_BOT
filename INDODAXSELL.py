@@ -4,10 +4,10 @@ from api.web import tanlalana
 from api.public import indodax
 import time
 
-def jual_semua_asset(): 
+def jual_semua_asset(id_users): 
             data=private_api(setting.apikey(),setting.screetkey())
             NewTanlalana=tanlalana
-            list=NewTanlalana.list_data_server_active()
+            list=NewTanlalana.list_data_server_active(id_users)
             list_coin=data.get_info()  
             for f in list:
                 jumlah_coin=float(list_coin['return']['balance'][f['trade_parameter']])
@@ -29,14 +29,11 @@ def jual_semua_asset():
                     receive='receive_rp'
                     remain='remain_'+f['trade_parameter']
                     if(cek_sell['success']==1):
-                        NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,cek_sell['return'][sold],cek_sell['return'][receive],cek_sell['return']['fee'],cek_sell['return'][receive],cek_sell['return']['order_id'])                                                                       
+                        NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id'],receive,1,cek_sell['return'][sold],cek_sell['return'][receive],cek_sell['return']['fee'],cek_sell['return'][receive],cek_sell['return']['order_id'])                                                                       
                         print("coin =",f['coin'])
                         print("terjual di harga =",harga_sell)
                         print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
                         print("")
-                    else:
-                        print("gagal melakukan pembelian")
-                        data.cancel_order_sell(f['trade_parameter'],cek_sell['return']['order_id'])
 
             NewTanlalana.update_all_trade_run()
             print("")
@@ -148,7 +145,7 @@ def view_coin():
 
             print(round(tambah,2))      
 
-def INDODAXSELL():
+def INDODAXSELL(id_users):
    print("==============================================")
    print("ini adalah app penjualan semua coin")
    print("")
@@ -158,7 +155,7 @@ def INDODAXSELL():
    print("")
    nama=int(input("silahkan pilih perintah yang akan di jalankan = "))
    if(nama==1):
-        jual_semua_asset()
+        jual_semua_asset(id_users)
    elif(nama==2):
      crypto=str(input("ketikan coin yang akan dijual contoh [zilidr] = "))
      single_coin(crypto)   
