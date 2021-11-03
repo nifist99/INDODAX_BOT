@@ -191,6 +191,3 @@ def INDODAXSELL(id_users):
    else:
        quit()
 
-
-# if __name__ == "__main__":
-#       main()

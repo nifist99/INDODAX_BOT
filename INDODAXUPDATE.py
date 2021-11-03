@@ -4,6 +4,7 @@ from api.user import user_indodax
 import time
 import os
 from config import setting
+from INDODAXBOT import bot
 #aksi looping 
 
 def update_sr_to_server(id_users,crypto):
@@ -72,7 +73,7 @@ def desesion(id_users):
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
             os.system('cls')
-            os.close()
+            bot(id_users)
     elif(nama==2):
         print("")
         print("memilih 1 koin :")
@@ -86,7 +87,7 @@ def desesion(id_users):
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
             os.system('cls')
-            os.close()
+            bot(id_users)
     elif(nama==3):
         print("melakukan reset strategi all")
         update_strategi_reset(id_users)
@@ -98,7 +99,7 @@ def desesion(id_users):
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
             os.system('cls')
-            os.close()
+            bot(id_users)
     elif(nama==4):
         print("melakukan reset dump all")
         update_dump_reset(id_users)
@@ -110,7 +111,7 @@ def desesion(id_users):
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
             os.system('cls')
-            os.close()
+            bot(id_users)
     else:
         os.system('cls')
         print("pilih yang benar ngab angkanya !!!!!!!")
