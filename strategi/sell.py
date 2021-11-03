@@ -42,7 +42,6 @@ def sell_all(id_users):
 
                                     NewTanlalana.update_trade_run(f['id'],'finish')
                                         
-                                    print("[",jam,"]","[COIN :",f['coin']," ]",'[STATUS SELL : SUCCESS]','[PRICE INDODAX]',' ',harga_sell,' ','[IDR]',' ',receive,' ','[SELL TARGET]',harga_target_jual)
                                     view_table(jam,f['coin'],"SUCCESS",harga_target_jual,f['harga'],harga_sell)
                                 else:
                                     view_table(jam,f['coin'],"CEK STATUS WEB",harga_target_jual,f['harga'],harga_sell)

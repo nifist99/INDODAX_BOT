@@ -21,9 +21,9 @@ def login(email,password):
         if(confrim==1):
             bot(id_users)
         elif(confrim==2):
-            INDODAXUPDATE()
+            INDODAXUPDATE(id_users)
         elif(confrim==3):
-            INDODAXSELL()
+            INDODAXSELL(id_users)
         else:
             print("[MASUKAN ANGKA SESUI MENU]")
 

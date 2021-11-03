@@ -27,22 +27,24 @@ def main():
                     # cek=data.trade_sell('zil',harga_sell,7.08167613)
 
                     # print(cek)
-                  # NewTanlalana=tanlalana
+                  NewTanlalana=tanlalana
                   # test=NewTanlalana.trade_run_add('dump',int(3),int(187),float(1000),float(10000),int(5),'sell',float(9000),float(9200),float(29),float(0),int(18888))
                   # test=NewTanlalana.history_trade_add('zil',int(3),'buy',float(1200),int(187),float(15000),0,float(9000),float(9200),float(29),float(0),int(18888))
-                  # test=tanlalana.list_trade_run_sell()
+                  # test=NewTanlalana.list_trade_run_sell(3)
+                  # print(test)
+                  # test=NewTanlalana.list_fibo_active(3)
                   # print(test)
                   # cek=view_coin_jumlah()
                   # print(cek)
 
-                  table = Texttable()
-                  table.add_rows([
-                                  ["DELAY PROGRAM"]
-                                ])
-                  print(table.draw())
-                  print()
-                  countdown(1)
-                  print("lanjut")
+                  # table = Texttable()
+                  # table.add_rows([
+                  #                 ["DELAY PROGRAM"]
+                  #               ])
+                  # print(table.draw())
+                  # print()
+                  # countdown(1)
+                  # print("lanjut")
 
 if __name__ == "__main__":
       main()

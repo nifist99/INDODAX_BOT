@@ -58,7 +58,7 @@ def bot(id_users):
 
                     #FUNGSI MEMBELI COIN DI HARGA DUMB DI BAWAH SUPORT
                     if(control_dumb_buy['status']=='active'):
-                        strategi_dump_buy()
+                        strategi_dump_buy(id_users)
 
                         if(nt['status']=='active'):
                             #clear layar perintah windows
@@ -74,7 +74,7 @@ def bot(id_users):
 
                     #MELAKUKAN FUNGSI BELI FIBONANCI
                     if(control_fibonanci_buy['status']=='active'):
-                        fibonanci()
+                        fibonanci(id_users)
                         if(nt['status']=='active'):
                             #clear layar perintah windows
                             os.system("cls")
@@ -92,7 +92,7 @@ def bot(id_users):
 
                 #MELAKUKAN FUNGSI FIBONANCI SELL
                 if(sell['status']=='active'):
-                    sell_all()
+                    sell_all(id_users)
                     if(nt['status']=='active'):
                             #clear layar perintah windows
                             os.system("cls")

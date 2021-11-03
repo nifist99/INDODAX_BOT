@@ -175,13 +175,11 @@ class tanlalana:
     def list_fibo_active(id_users):
         try:
             url="list_fibo_active"
-            param={'id_coin':id_users}
+            param={'id_users':id_users}
             r=http.post(url,data=param)
             respon=r.json()
-            global list_fibo_active
             list_fibo_active=respon['data']
             return list_fibo_active
-
         except Exception:
                 # sleep for a bit in case that helps
                 time.sleep(2)
