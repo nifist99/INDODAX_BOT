@@ -6,61 +6,47 @@ import os
 from config import setting
 #aksi looping 
 
-def update_sr_to_server(crypto):
+def update_sr_to_server(crypto,id_users):
         print("ini adalah update data to server")
         NewTanlalana=tanlalana
         NewIndodax=indodax(crypto)
         #ambil info status coin sekarang dari server
         result=NewIndodax.api_ticker_detail()
         #update suport resisten ke server tanlalna
-        status=NewTanlalana.update_suport_resisten_to_server(crypto,result['ticker']['low'],result['ticker']['high'],result['ticker']['sell'],result['ticker']['buy'])
-        NewTanlalana.update_btc()
+        status=NewTanlalana.update_suport_resisten_to_server(id_users,crypto,result['ticker']['low'],result['ticker']['high'],result['ticker']['sell'],result['ticker']['buy'])
         print(status)
 
-def update_user():
+def update_data(id_users):
             NewTanlalana=tanlalana
-            list=NewTanlalana.list_data_server()
-            
-            for f in list:
-                print("update data to server ", f['coin'])
-                cek=user_indodax.update_user(f['coin'],3)
-                
-            
-            print("selesai update data to server")
-
-def update_data():
-            NewTanlalana=tanlalana
-            list=NewTanlalana.list_data_server_active()
+            list=NewTanlalana.list_data_server_active(id_users)
             
             for f in list:
                 print("update data to server ....")
-                update_sr_to_server(f['coin'])
-
+                update_sr_to_server(id_users,f['coin'])
             
             print("selesai update data to server")
 
-def update_strategi_reset():
+def update_strategi_reset(id_users):
             NewTanlalana=tanlalana
-            list=NewTanlalana.list_data_server_active()
-            
+            list=NewTanlalana.list_data_server_active(id_users)
             for f in list:
                 print("melakukan reset strategi coin = ",f['coin'])
-                tanlalana.strategi_reset(f['id'])
+                tanlalana.strategi_reset(f['id'],id_users)
             
             print("selesai reset strategi silahkan cek perubahan di website")
 
-def update_dump_reset():
+def update_dump_reset(id_users):
             NewTanlalana=tanlalana
-            list=NewTanlalana.list_data_server_active()
+            list=NewTanlalana.list_data_server_active(id_users)
             
             for f in list:
                 print("melakukan reset dump coin = ",f['coin'])
-                cek=tanlalana.dump_reset(f['id'])
+                cek=tanlalana.dump_reset(f['id'],id_users)
                 print(cek)
             
             print("selesai reset dump silahkan cek perubahan di website")
 
-def desesion():
+def desesion(id_users):
     print("wait.......")
     time.sleep(2)
     print("")
@@ -77,11 +63,11 @@ def desesion():
         print("")
         print("melakukan perintah update semua koin aktif")
         time.sleep(2)
-        loop()
+        loop(id_users)
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            INDODAXUPDATE()
+            INDODAXUPDATE(id_users)
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -91,11 +77,11 @@ def desesion():
         print("")
         print("memilih 1 koin :")
         crypto=input('silahkan masukan uang crypto contoh [zilidr] =')
-        single(crypto)
+        single(crypto,id_users)
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            INDODAXUPDATE()
+            INDODAXUPDATE(id_users)
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -103,11 +89,11 @@ def desesion():
             os.close()
     elif(nama==3):
         print("melakukan reset strategi all")
-        update_strategi_reset()
+        update_strategi_reset(id_users)
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            INDODAXUPDATE()
+            INDODAXUPDATE(id_users)
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -115,11 +101,11 @@ def desesion():
             os.close()
     elif(nama==4):
         print("melakukan reset dump all")
-        update_dump_reset()
+        update_dump_reset(id_users)
         masukan=input("masukan Y / y untuk melanjutkan program =")
         if(masukan=='y' or masukan=='Y'):
             os.system('cls')
-            INDODAXUPDATE()
+            INDODAXUPDATE(id_users)
         else:
             print("")
             print("selesai melakukan update keluar aplikasi ..........")
@@ -128,9 +114,9 @@ def desesion():
     else:
         os.system('cls')
         print("pilih yang benar ngab angkanya !!!!!!!")
-        INDODAXUPDATE()
+        INDODAXUPDATE(id_users)
 
-def single(crypto):
+def single(crypto,id_users):
         print("")
         print("ini adalah update data to server")
         NewTanlalana=tanlalana
@@ -138,8 +124,7 @@ def single(crypto):
         #ambil info status coin sekarang dari server
         result=NewIndodax.api_ticker_detail()
         #update suport resisten ke server tanlalna
-        status=NewTanlalana.update_suport_resisten_to_server(crypto,result['ticker']['low'],result['ticker']['high'],result['ticker']['sell'],result['ticker']['buy'])
-        NewTanlalana.update_btc()
+        status=NewTanlalana.update_suport_resisten_to_server(id_users,crypto,result['ticker']['low'],result['ticker']['high'],result['ticker']['sell'],result['ticker']['buy'])
         time.sleep(2)
         print("")
         print("selesai melaukan update koin =",crypto)
@@ -150,7 +135,7 @@ def single(crypto):
             exit()
         
 
-def loop():
+def loop(id_users):
         #cekk setting app
         IndodaxSettingApp=tanlalana
         status_app= IndodaxSettingApp.control_indodax('trading indodax')
@@ -162,7 +147,7 @@ def loop():
             print("===========================================")           
             print("app indodax on")
             print("menjalakan api update coin active")
-            update_data()
+            update_data(id_users)
         else:
             print("")
             print("===============================================")           
@@ -170,9 +155,6 @@ def loop():
         print("")
         print("selesai melakukan update semua coin.....")
 
-def INDODAXUPDATE():
-    desesion()
-    # update_user()
+def INDODAXUPDATE(id_users):
+    desesion(id_users)
    
-# if __name__ == "__main__":
-#       main()

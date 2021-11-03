@@ -72,13 +72,13 @@ def view_coin_jumlah(id_users):
 
             return round(tambah,2) 
 
-def single_coin(crypto,id_users):
+def single_coin(id_users,order_id):
             
                 Setting=setting(id_users)
                 data=private_api(Setting.apikey(),Setting.screetkey())
                 NewTanlalana=tanlalana
                 list_coin=data.get_info()
-                hasil=NewTanlalana.get_data_from_server(crypto)
+                hasil=NewTanlalana.trade_run_detail(id_users,order_id)
                 f=hasil['data']
                 jumlah_coin=float(list_coin['return']['balance'][f['trade_parameter']])
                 if(jumlah_coin != 0):
@@ -100,20 +100,16 @@ def single_coin(crypto,id_users):
                     sold='sold_'+f['trade_parameter']
                     receive='receive_rp'
                     remain='remain_'+f['trade_parameter']
-                    if(cek_sell['success']==1):
-                        NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,cek_sell['return'][sold],cek_sell['return'][receive],cek_sell['return']['fee'],cek_sell['return'][receive],cek_sell['return']['order_id'])                                                                           
-                        print("coin =",f['coin'])
-                        print("terjual di harga =",harga_sell)
-                        print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
-                        print("")
-                    else:
-                            print("gagal melakukan pembelian")
-                            data.cancel_order_sell(f['trade_parameter'],cek_sell['return']['order_id'])
+                    NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,cek_sell['return'][sold],cek_sell['return'][receive],cek_sell['return']['fee'],cek_sell['return'][receive],cek_sell['return']['order_id'])                                                                           
+                    print("coin =",f['coin'])
+                    print("terjual di harga =",harga_sell)
+                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
+                    print("")
+  
                     print("Terjual dengan harga total =",total_idr)
                     print("")
 
 def view_coin(id_users):
-            
             Setting=setting(id_users)
             data=private_api(Setting.apikey(),Setting.screetkey())
             NewTanlalana=tanlalana

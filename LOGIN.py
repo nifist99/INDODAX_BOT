@@ -5,9 +5,11 @@ import os
 from INDODAXBOT import bot
 from INDODAXSELL import INDODAXSELL
 from INDODAXUPDATE import INDODAXUPDATE
+from api.web import tanlalana
 
 def login(email,password):
     user=user_indodax.indodax_login(email,password)
+    IndodaxSettingApp=tanlalana
     if(user['api_status']==1):
         print(user['api_message'])
         global id_users
@@ -33,7 +35,11 @@ def login(email,password):
         print("")
         confirmasi = str(input("[APAKAH ANDA INGIN MENCOBA LAGI KETIK Y/y] : "))
         if(confirmasi=="y" or confirmasi=="Y"):
-            os.system('cls')
+            nt=IndodaxSettingApp.control_indodax('windows not sleep',user['data']['id'])
+            if(nt['status']=='active'):
+                os.system('cls')
+            else:
+                os.system('clear')
             main()
         else:
             os.system('cls')

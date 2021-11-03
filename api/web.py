@@ -91,16 +91,17 @@ class tanlalana:
                 return tanlalana.get_data_from_server(this_coin)
 
     #  fungsi yang digunakan untuk megapdate data suport dan resisten
-    def update_suport_resisten_to_server(coin,suport,resisten,sell,buy):
+    def update_suport_resisten_to_server(id_users,coin,suport,resisten,sell,buy):
         this_coin=coin
         this_suport=suport
         this_resisten=resisten
         this_sell=sell
         this_buy=buy
+        this_id_users=id_users
         try:
             #melakukan jeda untuk memastikan koin terupdate
             time.sleep(2)
-            param={'coin':coin,'suport_update':suport,'resisten_update':resisten,'sell':sell,'buy':buy}
+            param={'id_users':id_users,'coin':coin,'suport_update':suport,'resisten_update':resisten,'sell':sell,'buy':buy}
             url="indodax_update"
             r=http.post(url,data=param)
             respon=r.json()
@@ -108,7 +109,7 @@ class tanlalana:
         except Exception:
                 # sleep for a bit in case that helps
                 time.sleep(2)
-                return tanlalana.update_suport_resisten_to_server(this_coin,this_suport,this_resisten,this_sell,this_buy)
+                return tanlalana.update_suport_resisten_to_server(this_id_users,this_coin,this_suport,this_resisten,this_sell,this_buy)
     
     # list data form server tanlalana
     def list_data_server():
@@ -196,6 +197,18 @@ class tanlalana:
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_all_trade_run()
+
+    def trade_run_detail(id_users,order_id):
+        try:
+            url="trade_run_detail"
+            param={'id_users':id_users,'order_id':order_id}
+            r=http.post(url,data=param)
+            respon=r.json()
+            return respon
+        except Exception:
+                # sleep for a bit in case that helps
+                time.sleep(2)
+                return tanlalana.trade_run_detail(id_users,order_id)
 
     #indodax list strategi dumb buy
     def list_tanlalana_auto_buy_sell(id_coin):
@@ -311,28 +324,30 @@ class tanlalana:
                 return tanlalana.update_btc()
 
     #melakukan strategi reset fibo
-    def strategi_reset(id_coin):
+    def strategi_reset(id_coin,id_users):
         this_id_coin=id_coin
+        this_id_users=id_users
         try:
             time.sleep(2)
-            param={'id_coin':id_coin}
+            param={'id_coin':id_coin,'id_users':id_users}
             url="strategi_reset"
             r=http.post(url,data=param)
         except Exception:
                 time.sleep(2)
-                return tanlalana.strategi_reset(this_id_coin)
+                return tanlalana.strategi_reset(this_id_coin,this_id_users)
 
     #melakukan strategi fibo reset
-    def dump_reset(id_coin):
+    def dump_reset(id_coin,id_users):
         this_id_coin=id_coin
+        this_id_users=id_users
         try:
             time.sleep(4)
-            param={'id_coin':id_coin}
+            param={'id_coin':id_coin,'id_users':id_users}
             url="dump_reset"
             r=http.post(url,data=param)
         except Exception:
                 time.sleep(2)
-                return tanlalana.dump_reset(this_id_coin)
+                return tanlalana.dump_reset(this_id_coin,this_id_users)
 
     #fungsi untuk control bot indodax mematikan dan  menghidupkan fungsi
     def control_indodax(nama,id_users):
@@ -390,8 +405,9 @@ class tanlalana:
                     return tanlalana.trade_run_add(this_nama,this_id_users,this_id_coin,this_harga_buy,this_harga,this_status,this_keuntungan,this_receive_coin,this_spend_rp,this_fee,this_remain_rp,this_order_id)
 
 class tanlalana_fungsi:
-        def update_sr_to_server(crypto):
+        def update_sr_to_server(id_users,crypto):
             this_crypto=crypto
+            this_id_users=id_users
             try:
                 #melakukan jeda untuk memastikan proses sudah selesai
                 time.sleep(2)
@@ -401,7 +417,7 @@ class tanlalana_fungsi:
                 #ambil info status coin sekarang dari server
                 result=NewIndodax.api_ticker_detail()
                 #update suport resisten ke server tanlalna
-                status=NewTanlalana.update_suport_resisten_to_server(crypto,result['ticker']['low'],result['ticker']['high'])
+                status=NewTanlalana.update_suport_resisten_to_server(id_users,crypto,result['ticker']['low'],result['ticker']['high'])
                 NewTanlalana.update_btc()
                 print(status)
             except Exception:
