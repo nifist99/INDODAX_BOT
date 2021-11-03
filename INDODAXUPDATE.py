@@ -6,7 +6,7 @@ import os
 from config import setting
 #aksi looping 
 
-def update_sr_to_server(crypto,id_users):
+def update_sr_to_server(id_users,crypto):
         print("ini adalah update data to server")
         NewTanlalana=tanlalana
         NewIndodax=indodax(crypto)
@@ -130,7 +130,7 @@ def single(crypto,id_users):
         print("selesai melaukan update koin =",crypto)
         r=input("apakah anda akan melakukan update lagi ? jika iya Tekan Y jika tidak tekan N =")
         if(r=='Y' or r=='y'):
-            return desesion()
+            return desesion(id_users)
         elif(r=='N' or r=='n'):
             exit()
         
@@ -138,8 +138,7 @@ def single(crypto,id_users):
 def loop(id_users):
         #cekk setting app
         IndodaxSettingApp=tanlalana
-        status_app= IndodaxSettingApp.control_indodax('trading indodax')
-        osSleep = None
+        status_app= IndodaxSettingApp.control_indodax('trading indodax',id_users)
 
         #in Windows, prevent the OS from sleeping while we run
         if(status_app['status']=='active'):

@@ -332,6 +332,7 @@ class tanlalana:
             param={'id_coin':id_coin,'id_users':id_users}
             url="strategi_reset"
             r=http.post(url,data=param)
+            return r
         except Exception:
                 time.sleep(2)
                 return tanlalana.strategi_reset(this_id_coin,this_id_users)
@@ -341,10 +342,11 @@ class tanlalana:
         this_id_coin=id_coin
         this_id_users=id_users
         try:
-            time.sleep(4)
+            time.sleep(2)
             param={'id_coin':id_coin,'id_users':id_users}
             url="dump_reset"
             r=http.post(url,data=param)
+            return r
         except Exception:
                 time.sleep(2)
                 return tanlalana.dump_reset(this_id_coin,this_id_users)
