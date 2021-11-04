@@ -33,9 +33,9 @@ class private_api:
 
 
   def query(self, method, **kwargs: dict):
-    self.method=method
-    self.kwargs=kwargs
-    try:
+    # self.method=method
+    # self.kwargs=kwargs
+    # try:
         url = 'https://indodax.com/tapi/'
 
         kwargs['method'] = method
@@ -54,9 +54,9 @@ class private_api:
         r = http.post(url, headers=headers, data=kwargs)
         js = r.json()
         return js
-    except Exception:
-                    time.sleep(2)
-                    return private_api.query(self, self.method, self.kwargs)
+    # except Exception:
+    #                 time.sleep(2)
+    #                 return private_api.query(self, self.method, self.kwargs)
 
 
   def get_info(self):
