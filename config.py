@@ -1,7 +1,6 @@
 from api.web import tanlalana
 
 
-
 class setting:
         def __init__(self,id_users):
     #key dari indodax

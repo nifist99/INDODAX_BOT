@@ -10,7 +10,6 @@ import os
 from config import setting
 #aksi looping 
 from INDODAXSELL import jual_semua_asset,view_coin_jumlah
-from INDODAXUPDATE import update_data,update_strategi_reset,update_dump_reset
 
 
 def bot(id_users):
@@ -116,9 +115,6 @@ def bot(id_users):
                     print("===============================================")
                     if(float(simple_sell)>float(simple_sell_web['auto_sell'])):
                         jual_semua_asset()
-                        update_data()
-                        update_strategi_reset()
-                        update_dump_reset()
                         time.sleep(5)
                         print("[FINISH TO SELL ALL COIN PARAMETER ALL UPDATE]")
                     else:

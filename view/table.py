@@ -24,3 +24,11 @@ def sayonara():
                                 ])
                   print(table.draw())
                   print()
+
+def txt(variabel):
+                  table = Texttable()
+                  table.add_rows([
+                                  [variabel]
+                                ])
+                  print(table.draw())
+                  print()

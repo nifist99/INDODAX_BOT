@@ -46,11 +46,14 @@ def login(email,password):
             sayonara()
             exit()
 
-def main():
+def process():
     welcome()
     email = str(input("[MASUKAN EMAIL] : "))
     password = str(input("[MASUKAN PASSWORD] : "))
     login(email,password)
+
+def main():
+    process()
 
 if __name__ == "__main__":
       main()
