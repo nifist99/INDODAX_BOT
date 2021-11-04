@@ -70,7 +70,6 @@ def desesion(id_users):
             INDODAXUPDATE(id_users)
         else:
             os.system('cls')
-            exit()
     elif(nama==2):
         print("")
         txt("MEMILIH 1 COIN :")
@@ -82,7 +81,6 @@ def desesion(id_users):
             INDODAXUPDATE(id_users)
         else:
             os.system('cls')
-            exit()
     elif(nama==3):
         update_strategi_reset(id_users)
         masukan=input("MASUKAN Y / y UNTUK MELANJUTKAN PROGRAM =")
@@ -91,7 +89,6 @@ def desesion(id_users):
             INDODAXUPDATE(id_users)
         else:
             os.system('cls')
-            exit()
     elif(nama==4):
         update_dump_reset(id_users)
         masukan=input("MASUKAN Y / y UNTUK MELANJUTKAN PROGRAM =")
@@ -100,7 +97,6 @@ def desesion(id_users):
             INDODAXUPDATE(id_users)
         else:
             os.system('cls')
-            exit()
     else:
         os.system('cls')
         txt("PILIH YANG BENAR ANGKANYA NGAB !!!!!!!")
