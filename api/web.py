@@ -158,6 +158,53 @@ class tanlalana:
                 time.sleep(2)
                 return tanlalana.list_data_server_active(this_id_user)
 
+    #indodax coin active
+    def list_manual_active(id_users):
+        this_id_user=id_users
+        try:
+            url="list_manual_active"
+            param={'id_users':id_users}
+            r=http.post(url,data=param)
+            respon=r.json()
+            global list_manual_active
+            list_manual_active=respon['data']
+            return list_manual_active
+        except Exception:
+                # sleep for a bit in case that helps
+                time.sleep(2)
+                return tanlalana.list_manual_active(this_id_user)
+    #indodax list strategi dumb buy
+    def list_manual_strategi(id_coin):
+        coin=id_coin
+        try:
+            param={'id_coin':id_coin}
+            url="list_manual_strategi"
+            r=http.post(url,data=param)
+            respon=r.json()
+            list_manual_strategi=respon['data']
+            return list_manual_strategi
+        except Exception:
+                # sleep for a bit in case that helps
+                time.sleep(2)
+                return tanlalana.list_manual_strategi(coin)
+
+    def update_manual_strategi(id,id_coin,status,harga_buy):
+        this_id=id
+        this_id_coin=id_coin
+        this_status=status
+        this_harga_buy=harga_buy
+
+        try:
+            #MELAKUKAN JEDA UNTUK MEMASTIKAN KOIN TERUPDATE
+            time.sleep(2)
+            param={'id':id,'id_coin':id_coin,'status':status,'harga_buy':harga_buy}
+            url="update_manual_strategi"
+            r=http.post(url,data=param)
+        except Exception:
+                # sleep for a bit in case that helps
+                time.sleep(2)
+                return tanlalana.update_manual_strategi(this_id,this_id_coin,this_status,this_harga_buy)
+
      #MENAMPILKAN COIN YANG AKAN DI JUAL DI STRATEGI DUMP SELL
     def get_dump_sell():
         try:

@@ -12,7 +12,6 @@ def sell_all(id_users):
             list=NewTanlalana.list_trade_run_sell(id_users)
             get_spesific=data.get_info()
 
-            balance_idr=float(get_spesific['return']['balance']['idr'])
             print("[NAMA] :",get_spesific['return']['name'])
             print("[MONEY BALANCE] :",get_spesific['return']['balance']['idr'])
             print("")
