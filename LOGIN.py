@@ -2,9 +2,9 @@
 from api.user import user_indodax
 from view.table import welcome,sayonara
 import os
-from INDODAXBOT import bot
-from INDODAXSELL import INDODAXSELL
-from INDODAXUPDATE import INDODAXUPDATE
+from fungsi.indodaxBot import bot
+from fungsi.fungsiSell import INDODAXSELL
+from fungsi.indodaxUpdate import INDODAXUPDATE
 from api.web import tanlalana
 
 def login(email,password):

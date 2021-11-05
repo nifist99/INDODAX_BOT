@@ -9,7 +9,7 @@ import time
 import os
 from config import setting
 #aksi looping 
-from INDODAXSELL import jual_semua_asset,view_coin_jumlah
+from fungsi.fungsiSell import sell_all_manual,total_asset
 
 
 def bot(id_users):
@@ -107,14 +107,14 @@ def bot(id_users):
                 if(auto_sell['status']=='active'):
                     print("")
                     print("===============================================")
-                    simple_sell=float(view_coin_jumlah())
+                    simple_sell=float(total_asset())
                     simple_sell_web=IndodaxSettingApp.indodax_simple_sell()
                     print('[TARGET SELL] :',simple_sell_web['auto_sell'])
                     print('[PRICE INDODAX NOW] :',simple_sell)
                     print("")
                     print("===============================================")
                     if(float(simple_sell)>float(simple_sell_web['auto_sell'])):
-                        jual_semua_asset()
+                        sell_all_manual()
                         time.sleep(5)
                         print("[FINISH TO SELL ALL COIN PARAMETER ALL UPDATE]")
                     else:
