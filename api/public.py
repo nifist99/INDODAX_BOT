@@ -68,17 +68,5 @@ class indodax:
                     time.sleep(2)
                     return indodax.api_detail_btc(self)
 
-#MAIN FUNGSI UNTUK MENCOBA FUNGSI API
 
-# def main():
-#         In=indodax('repv2idr')
-#         result=In.api_summary()
-#         print(result)
-#         print("")
-
-
- 
-   
-# if __name__ == "__main__":
-#       main()
 
