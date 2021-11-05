@@ -9,7 +9,7 @@ from api.private import private_api
 import time
 import os
 from config import setting
-#aksi looping 
+from countdown import countdown
 from fungsi.fungsiSell import sell_all_manual,total_asset
 
 
@@ -151,7 +151,8 @@ def bot(id_users):
                     menit=int(delay_program['parameter_int']*60)
                     print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
                     print("DELAY PROGRAM :",delay_program['parameter_int']," MENIT............")
-                    time.sleep(menit)
+                    countdown(menit)
+                    # time.sleep(menit)
                 else:
                         print("")
                         print("[DELAY PROGRAM NOT ACTIVE]")
@@ -161,5 +162,3 @@ def bot(id_users):
             print("===============================================")          
             print("[APP INDODAX OFF]")
    
-# if __name__ == "__main__":
-#       main()
