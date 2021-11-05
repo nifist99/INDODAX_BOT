@@ -13,6 +13,7 @@ from config import setting
 from fungsi.fungsiSell import sell_all_manual,total_asset
 
 
+
 def bot(id_users):
         #cekk setting app
         #cek btc indodax menghindari dumb
