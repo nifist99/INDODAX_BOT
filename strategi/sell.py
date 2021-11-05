@@ -31,22 +31,19 @@ def sell_all(id_users):
                         keuntungan=float(f['keuntungan']*f['harga_buy']/100)
                         harga_target_jual=float(f['harga_buy']+keuntungan)
                         if(harga_sell>=harga_target_jual):
-                                if(f['status'] == 'sell'):
-                                    cek_sell=data.trade_sell(detail['data']['trade_parameter'],harga_sell,f['receive_coin'])
-                                    #add history trade
-                                    receive=harga_sell*f['receive_coin']
-      
-                                    NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,f['receive_coin'],0,f['fee'],0,f['order_id'])                               
-                                        #update strategi indodax
-                                    NewTanlalana.update_tanlalana_auto_buy_sell(f['id'],f['id_coin'],'finish',harga_sell)
+                            data.trade_sell(detail['data']['trade_parameter'],harga_sell,f['receive_coin'])
 
-                                    NewTanlalana.update_trade_run(f['id'],'finish')
+                            receive=harga_sell*f['receive_coin']
+      
+                            NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,f['receive_coin'],0,f['fee'],0,f['order_id'])                               
+                                        #update strategi indodax
+                            NewTanlalana.update_tanlalana_auto_buy_sell(f['id'],f['id_coin'],'finish',harga_sell)
+
+                            NewTanlalana.update_trade_run(f['id'],'finish')
                                         
-                                    view_table(jam,f['coin'],"SUCCESS",harga_target_jual,f['harga'],harga_sell)
-                                else:
-                                    view_table(jam,f['coin'],"CEK STATUS WEB",harga_target_jual,f['harga'],harga_sell)
+                            view_table(jam,f['coin'],"SUCCESS",harga_target_jual,f['harga'],harga_sell)
                         else:
-                                view_table(jam,f['coin'],"PRICE STRATEGI NOT PASS",harga_target_jual,f['harga'],harga_sell)
+                            view_table(jam,f['coin'],"PRICE STRATEGI NOT PASS",harga_target_jual,f['harga'],harga_sell)
                 else:
                     view_table(jam,f['coin'],"CEK STATUS WEB",harga_target_jual,f['harga'],harga_sell)
 
