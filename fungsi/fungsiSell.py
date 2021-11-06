@@ -1,3 +1,4 @@
+import os
 from api.web import tanlalana,tanlalana_fungsi
 from api.public import indodax
 from config import setting
@@ -14,7 +15,7 @@ def sell_all_manual(id_users):
 
             print("[NAMA] :",get_spesific['return']['name'])
             print("[MONEY BALANCE] :",get_spesific['return']['balance']['idr'])
-            print("[TOTAL ASSET : ]",total_asset())
+            print("[TOTAL ASSET : ]",total_asset(id_users))
             print("")
             print("===============================================")
             print("[START PROGRAM SELL COIN]")
@@ -60,7 +61,7 @@ def single_coin(id_users,order_id):
 
                 print("[NAMA] :",get_spesific['return']['name'])
                 print("[MONEY BALANCE] :",get_spesific['return']['balance']['idr'])
-                print("[TOTAL ASSET : ]",total_asset())
+                print("[TOTAL ASSET : ]",total_asset(id_users))
                 print("")
                 print("===============================================")
                 print("[START PROGRAM SELL COIN]")
@@ -166,8 +167,16 @@ def INDODAXSELL(id_users):
    nama=int(input("silahkan pilih perintah yang akan di jalankan = "))
    if(nama==1):
         sell_all_manual(id_users)
+        lanjut=str(input("masukan Y/y untuk melanjutkan :"))
+        if(lanjut=="y" or lanjut=="Y"):
+            os.system("cls")
+            INDODAXSELL(id_users)
    elif(nama==2):
      order_id=str(input("ketikan order_id cek di menu web [trade run] = "))
-     single_coin(id_users,order_id)   
+     single_coin(id_users,order_id) 
+     lanjut=str(input("masukan Y/y untuk melanjutkan :"))
+     if(lanjut=="y" or lanjut=="Y"):
+            os.system("cls")
+            INDODAXSELL(id_users)  
    else:
        quit()
