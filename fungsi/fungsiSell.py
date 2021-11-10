@@ -23,24 +23,30 @@ def sell_all_manual(id_users):
             for f in list:
                 if(f['status']=='sell'):
                         detail=NewTanlalana.get_data_from_server(f['coin'])
+                        if(detail['data']['trade_parameter'] != None):
                         #mengetahui harga sekarang
-                        NewIndodax=indodax(f['coin'])
-                        result=NewIndodax.api_ticker_detail()
-                        harga_sell=float(result['ticker']['buy'])
-                        
-                        jam=time.strftime("%H:%M:%S", time.localtime())
+                            NewIndodax=indodax(f['coin'])
+                            result=NewIndodax.api_ticker_detail()
+                            harga_sell=float(result['ticker']['buy'])
+                            
+                            if(f['receive_coin'] != None):
+                                jam=time.strftime("%H:%M:%S", time.localtime())
 
-                        data.trade_sell(detail['data']['trade_parameter'],harga_sell,f['receive_coin'])
-                                    #add history trade
-                        receive=harga_sell*f['receive_coin']
-      
-                        NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,f['receive_coin'],0,f['fee'],0,f['order_id'])                               
-                                        #update strategi indodax
-                        NewTanlalana.update_tanlalana_auto_buy_sell(f['id'],f['id_coin'],'finish',harga_sell)
+                                data.trade_sell(detail['data']['trade_parameter'],harga_sell,f['receive_coin'])
+                                            #add history trade
+                                receive=harga_sell*f['receive_coin']
+            
+                                NewTanlalana.history_trade_add(f['coin'],f['id_users'],"sell",harga_sell,f['id_coin'],receive,1,f['receive_coin'],0,f['fee'],0,f['order_id'])                               
+                                                #update strategi indodax
+                                NewTanlalana.update_tanlalana_auto_buy_sell(f['id'],f['id_coin'],'finish',harga_sell)
 
-                        NewTanlalana.update_trade_run(f['id'],'finish')
-                                        
-                        view_table(jam,f['coin'],"SUCCESS",harga_sell,f['harga'],harga_sell)
+                                NewTanlalana.update_trade_run(f['id'],'finish')
+                                                
+                                view_table(jam,f['coin'],"SUCCESS",harga_sell,f['harga'],harga_sell)
+                            else:
+                                view_table(jam,f['coin'],"failed",harga_sell,f['harga'],harga_sell)
+                        else:
+                            view_table(jam,f['coin'],"failed",harga_sell,f['harga'],harga_sell)
   
                         
                 else:

@@ -35,11 +35,7 @@ def login(email,password):
         print("")
         confirmasi = str(input("[APAKAH ANDA INGIN MENCOBA LAGI KETIK Y/y] : "))
         if(confirmasi=="y" or confirmasi=="Y"):
-            nt=IndodaxSettingApp.control_indodax('windows not sleep',user['data']['id'])
-            if(nt['status']=='active'):
-                os.system('cls')
-            else:
-                os.system('clear')
+            os.system('cls')
             main()
         else:
             os.system('cls')

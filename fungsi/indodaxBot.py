@@ -151,7 +151,7 @@ def bot(id_users):
                     menit=int(delay_program['parameter_int']*60)
                     print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
                     print("DELAY PROGRAM :",delay_program['parameter_int']," MENIT............")
-                    countdown(menit)
+                    countdown(delay_program['parameter_int'])
                     # time.sleep(menit)
                 else:
                         print("")
