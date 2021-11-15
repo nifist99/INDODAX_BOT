@@ -234,10 +234,11 @@ class tanlalana:
                 return tanlalana.list_fibo_active(id_users)
 
     #MENAMPILKAN KOIN FIBO YANG AKAN DIJUAL
-    def update_all_trade_run():
+    def update_all_trade_run(id_users):
         try:
+            param={'id_users':id_users}
             url="update_all_trade_run"
-            r=http.post(url)
+            r=http.post(url,data=param)
             respon=r.json()
             return respon
         except Exception:

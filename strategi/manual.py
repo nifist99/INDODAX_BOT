@@ -69,9 +69,9 @@ def strategi_manual(id_users):
                             view_table(jam,f['coin'],"FINISH BUY",auto['harga_buy'],auto['idr'],harga_buy)
 
                 else:
-                    view_table(jam,f['coin'],"DUMP BUY NOT ACTIVE",auto['harga_buy'],auto['idr'],harga_buy)
+                    view_table(jam,f['coin'],"MANUAL BUY NOT ACTIVE",auto['harga_buy'],auto['idr'],harga_buy)
 
                 print("")
-                print("[",jam,"]","[FINISH LOOP DUMP BUY]","[COIN :",f['coin']," ]")
+                print("[",jam,"]","[FINISH LOOP MANUAL BUY]","[COIN :",f['coin']," ]")
                 print("")
 
