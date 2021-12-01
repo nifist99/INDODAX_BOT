@@ -1,4 +1,5 @@
 from texttable import Texttable
+import time
 
 def view_table(jam,coin,status,price_target,idr,price_indodax):
                   table = Texttable()
@@ -32,3 +33,8 @@ def txt(variabel):
                                 ])
                   print(table.draw())
                   print()
+
+def reconect():
+    print("INFO : RECONNECTING TO SERVER HTTPS://TANLALALA.COM, TIME :",time.strftime("%H:%M:%S", time.localtime()))
+    print("ERROR : CHECK YOUR CONNECTING INTERNET WIFI OR MODEM.......")
+    print("")

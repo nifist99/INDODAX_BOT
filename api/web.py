@@ -1,6 +1,7 @@
 import time
 import requests
 from api.public import indodax
+from view import table
 
 
 from requests_toolbelt import sessions
@@ -39,6 +40,7 @@ class tanlalana:
             result=r.json()
             return result
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 # try again
@@ -56,6 +58,7 @@ class tanlalana:
             url="indodax_created"
             http.post(url,data=param)
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.add_data_to_server(this_coin,this_image,this_currency)
@@ -71,6 +74,7 @@ class tanlalana:
             http.post(url,data=param)
 
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_data_to_server(this_coin,this_ticker_id)    
@@ -86,6 +90,7 @@ class tanlalana:
             data_trading=r.json()
             return data_trading
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.get_data_from_server(this_coin)
@@ -107,6 +112,7 @@ class tanlalana:
             respon=r.json()
             return respon
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_suport_resisten_to_server(this_id_users,this_coin,this_suport,this_resisten,this_sell,this_buy)
@@ -122,6 +128,7 @@ class tanlalana:
             return list_tanlalana
 
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_data_server()
@@ -138,6 +145,7 @@ class tanlalana:
             return list_strategi_fibonanci
 
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_strategi_fibonanci(this_id_coin)
@@ -154,6 +162,7 @@ class tanlalana:
             list_tanlalana_active=respon['data']
             return list_tanlalana_active
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_data_server_active(this_id_user)
@@ -170,6 +179,7 @@ class tanlalana:
             list_manual_active=respon['data']
             return list_manual_active
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_manual_active(this_id_user)
@@ -184,6 +194,7 @@ class tanlalana:
             list_manual_strategi=respon['data']
             return list_manual_strategi
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_manual_strategi(coin)
@@ -201,6 +212,7 @@ class tanlalana:
             url="update_manual_strategi"
             r=http.post(url,data=param)
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_manual_strategi(this_id,this_id_coin,this_status,this_harga_buy)
@@ -215,6 +227,7 @@ class tanlalana:
             list_get_dump_sell=respon['data']
             return list_get_dump_sell
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.get_dump_sell()
@@ -229,6 +242,7 @@ class tanlalana:
             list_fibo_active=respon['data']
             return list_fibo_active
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_fibo_active(id_users)
@@ -242,6 +256,7 @@ class tanlalana:
             respon=r.json()
             return respon
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_all_trade_run()
@@ -254,6 +269,7 @@ class tanlalana:
             respon=r.json()
             return respon
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.trade_run_detail(id_users,order_id)
@@ -269,6 +285,7 @@ class tanlalana:
             list_tanlalana_auto_buy_sell=respon['data']
             return list_tanlalana_auto_buy_sell
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_tanlalana_auto_buy_sell(coin)
@@ -284,6 +301,7 @@ class tanlalana:
             indodax_dump_list_sell=respon['data']
             return indodax_dump_list_sell
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.indodax_dump_list_sell(coin)
@@ -297,6 +315,7 @@ class tanlalana:
             list_trade_run_sell=respon['data']
             return list_trade_run_sell
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.list_trade_run_sell(id_users)
@@ -316,6 +335,7 @@ class tanlalana:
             url="indodax_auto_buy_sell_update"
             r=http.post(url,data=param)
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_tanlalana_auto_buy_sell(this_id,this_id_coin,this_status,this_harga_buy)
@@ -332,6 +352,7 @@ class tanlalana:
             url="update_trade_run"
             r=http.post(url,data=param)
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_trade_run(this_id,this_status)
@@ -349,6 +370,7 @@ class tanlalana:
             return indodax_setting_ap
 
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.indodax_setting(this_nama,this_id_users)
@@ -367,6 +389,7 @@ class tanlalana:
             return respon
   
         except Exception:
+                table.reconect()
                 # sleep for a bit in case that helps
                 time.sleep(2)
                 return tanlalana.update_btc()
@@ -382,6 +405,7 @@ class tanlalana:
             r=http.post(url,data=param)
             return r
         except Exception:
+                table.reconect()
                 time.sleep(2)
                 return tanlalana.strategi_reset(this_id_coin,this_id_users)
 
@@ -396,6 +420,7 @@ class tanlalana:
             r=http.post(url,data=param)
             return r
         except Exception:
+                table.reconect()
                 time.sleep(2)
                 return tanlalana.dump_reset(this_id_coin,this_id_users)
 
@@ -410,6 +435,7 @@ class tanlalana:
                 control=r.json()
                 return control['data']
             except Exception:
+                    table.reconect()
                     # sleep for a bit in case that helps
                     time.sleep(2)
                     return tanlalana.control_indodax(this_nama,this_id_users)
@@ -424,6 +450,7 @@ class tanlalana:
                 indodax_simple_sell=respon['data']
                 return indodax_simple_sell
             except Exception:
+                    table.reconect()
                     # sleep for a bit in case that helps
                     time.sleep(2)
                     return tanlalana.indodax_simple_sell()
@@ -450,6 +477,7 @@ class tanlalana:
                 result=r.json()
                 return result
             except Exception:
+                    table.reconect()
                     # sleep for a bit in case that helps
                     time.sleep(2)
                     return tanlalana.trade_run_add(this_nama,this_id_users,this_id_coin,this_harga_buy,this_harga,this_status,this_keuntungan,this_receive_coin,this_spend_rp,this_fee,this_remain_rp,this_order_id)
@@ -471,6 +499,7 @@ class tanlalana_fungsi:
                 NewTanlalana.update_btc()
                 print(status)
             except Exception:
+                    table.reconect()
                     # sleep for a bit in case that helps
                     time.sleep(2)
                     return tanlalana_fungsi.update_sr_to_server(this_crypto)
@@ -485,6 +514,7 @@ class tanlalana_fungsi:
                 indodax_strategi=r.json()
                 return indodax_strategi['data']
             except Exception:
+                    table.reconect()
                     # sleep for a bit in case that helps
                     time.sleep(2)
                     return tanlalana_fungsi.get_data_strategi(this_name,this_id_coin)
@@ -505,6 +535,7 @@ class tanlalana_fungsi:
                 url="indodax_strategi_update"
                 http.post(url,data=param)
             except Exception:
+                    table.reconect()
                     # sleep for a bit in case that helps
                     time.sleep(2)
                     return tanlalana_fungsi.update_data_strategi(this_name,this_id_coin,this_buy,this_idr,this_status,this_id)

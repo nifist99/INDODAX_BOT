@@ -148,8 +148,14 @@ def bot(id_users):
                         print("[CONTROL INDODAX SIMPLE SELL NOT ACTIVE]")
 
                 if(delay_program['parameter_int']!=0):
+                    if(nt['status']=='active'):
+                            #clear layar perintah windows
+                            os.system("cls")
+                    else:
+                            #clear layar perintah linux
+                            os.system("clear")
                     menit=int(delay_program['parameter_int']*60)
-                    print("Eksekusi Jam :",time.strftime("%H:%M:%S", time.localtime()))
+                    print("TIME :",time.strftime("%H:%M:%S", time.localtime()))
                     print("DELAY PROGRAM :",delay_program['parameter_int']," MENIT............")
                     countdown(delay_program['parameter_int'])
                     # time.sleep(menit)
